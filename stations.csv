@@ -1,0 +1,10 @@
+name,url,mount
+KBS 1 Radio,https://radio.bsod.kr/stream?stn=kbs&ch=1radio,kbs1.mp3
+KBS 2 Radio,https://radio.bsod.kr/stream?stn=kbs&ch=2radio,kbs2.mp3
+KBS 1FM,https://radio.bsod.kr/stream?stn=kbs&ch=1fm,kbs1fm.mp3
+KBS 2FM,https://radio.bsod.kr/stream?stn=kbs&ch=2fm,kbs2fm.mp3
+YTN Radio,https://radiolive.ytn.co.kr/radio/_definst_/20211118_fmlive/playlist.m3u8,ytn.mp3
+SBS Love FM,https://radio.bsod.kr/stream?stn=sbs&ch=lovefm,sbslove.mp3
+TBN Gyeongin,https://www.tbn.it.kr/gyeongin/myStream/playlist.m3u8,tbn.mp3
+TBS FM,https://cdnfm.tbs.seoul.kr/tbs/_definst_/tbs_fm_web_360.smil/playlist.m3u8,tbs.mp3
+Gugak FM,https://mgugaklive.nowcdn.co.kr/gugakradio/gugakradio.stream/playlist.m3u8,gugak.mp3

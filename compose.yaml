@@ -10,7 +10,7 @@ services:
       ICECAST_ADMIN_USERNAME: admin
       ICECAST_ADMIN_PASSWORD: admin
       ICECAST_HOSTNAME: localhost
-      ICECAST_MAX_CLIENTS: "16"
+      ICECAST_MAX_CLIENTS: "100"
       ICECAST_MAX_SOURCES: "16"
 
     ports:
@@ -24,122 +24,9 @@ services:
     depends_on:
       - icecast
 
+    volumes:
+      - ./:/app
+
     entrypoint:
       - /bin/sh
-      - -c
-
-    command:
-      - |
-        workers=""
-
-        stop_all() {
-          for p in $$workers; do
-            kill -TERM "$$p" 2>/dev/null || true
-          done
-
-          wait
-          exit 0
-        }
-
-        trap stop_all TERM INT
-
-        run() {
-          NAME="$$1"
-          URL="$$2"
-          MOUNT="$$3"
-
-          while true; do
-            echo "[$$NAME] Starting stream"
-
-            ffmpeg \
-              -nostdin \
-              -hide_banner \
-              -loglevel warning \
-              -user_agent "Mozilla/5.0" \
-              -rw_timeout 15000000 \
-              -i "$$URL" \
-              -map 0:a:0 \
-              -vn \
-              -c:a libmp3lame \
-              -b:a 128k \
-              -ar 44100 \
-              -ac 2 \
-              -content_type audio/mpeg \
-              -ice_name "$$NAME" \
-              -ice_public 0 \
-              -f mp3 \
-              "icecast://source:ets2radio@icecast:8000/$$MOUNT" &
-
-            child=$$!
-
-            trap 'kill -TERM "$$child" 2>/dev/null || true; wait "$$child" 2>/dev/null || true; exit 0' TERM INT
-
-            wait "$$child" || true
-
-            trap - TERM INT
-
-            echo "[$$NAME] Stream disconnected. Reconnecting in 5 seconds..."
-            sleep 5
-          done
-        }
-
-        echo "[Radio] Waiting for Icecast..."
-        sleep 5
-
-        echo "[Radio] Starting all streams"
-
-        run \
-          "KBS 1 Radio" \
-          "https://radio.bsod.kr/stream?stn=kbs&ch=1radio" \
-          "kbs1.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "KBS 2 Radio" \
-          "https://radio.bsod.kr/stream?stn=kbs&ch=2radio" \
-          "kbs2.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "KBS 1FM" \
-          "https://radio.bsod.kr/stream?stn=kbs&ch=1fm" \
-          "kbs1fm.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "KBS 2FM" \
-          "https://radio.bsod.kr/stream?stn=kbs&ch=2fm" \
-          "kbs2fm.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "YTN Radio" \
-          "https://radiolive.ytn.co.kr/radio/_definst_/20211118_fmlive/playlist.m3u8" \
-          "ytn.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "SBS Love FM" \
-          "https://radio.bsod.kr/stream?stn=sbs&ch=lovefm" \
-          "sbslove.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "TBN Gyeongin" \
-          "https://www.tbn.it.kr/gyeongin/myStream/playlist.m3u8" \
-          "tbn.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "TBS FM" \
-          "https://cdnfm.tbs.seoul.kr/tbs/_definst_/tbs_fm_web_360.smil/playlist.m3u8" \
-          "tbs.mp3" &
-        workers="$$workers $$!"
-
-        run \
-          "Gugak FM" \
-          "https://mgugaklive.nowcdn.co.kr/gugakradio/gugakradio.stream/playlist.m3u8" \
-          "gugak.mp3" &
-        workers="$$workers $$!"
-
-        wait
+      - /app/transcode.sh
