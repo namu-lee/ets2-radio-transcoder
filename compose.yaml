@@ -15,6 +15,9 @@ services:
 
     ports:
       - "127.0.0.1:8000:8000"
+      
+    volumes:
+      - ./icecast.xml:/etc/icecast.xml:ro
 
   radio:
     image: lscr.io/linuxserver/ffmpeg:version-9.0-cli
