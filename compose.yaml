@@ -1,7 +1,8 @@
-name: ets2-radio
+name: ets2-radio-transcoder
 
 services:
   icecast:
+    container_name: ets2-radio-transcoder-icecast
     image: libretime/icecast:2.5.0
     restart: unless-stopped
 
@@ -19,7 +20,8 @@ services:
     volumes:
       - ./icecast.xml:/etc/icecast.xml:ro
 
-  radio:
+  ffmpeg:
+    container_name: ets2-radio-transcoder-ffmpeg
     image: lscr.io/linuxserver/ffmpeg:version-9.0-cli
     restart: unless-stopped
     init: true
