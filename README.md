@@ -2,7 +2,7 @@
 
 ETS2 Radio Transcoder converts online radio stations into local MP3 streams for Euro Truck Simulator 2 (ETS2).
 
-## Workflow
+## Quick start
 
 1. Add stations to `stations.csv` in `name,url,category` format.
 2. Start Icecast and FFmpeg with `docker compose up -d`.
