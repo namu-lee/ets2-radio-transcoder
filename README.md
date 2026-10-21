@@ -1,15 +1,15 @@
 # ETS2 Radio Transcoder
 
-Turn online radio stations into local MP3 streams that Euro Truck Simulator 2 (ETS2) can play.
+ETS2 Radio Transcoder converts online radio stations into local MP3 streams for Euro Truck Simulator 2 (ETS2).
 
 ## Workflow
 
-1. Add your stations to `stations.csv` using the `name,url,category` format.
-2. Run `docker compose up -d` to start Icecast and FFmpeg.
-3. On startup, `transcode.sh` generates `live_streams.sii`. FFmpeg converts each station to a 128 kbps MP3 stream and sends it to Icecast.
-4. Icecast serves the streams at `http://127.0.0.1:8000/`. If a source drops, the transcoder automatically reconnects.
-5. With ETS2 closed, copy `live_streams.sii` to `Documents/Euro Truck Simulator 2/`. Launch the game and select a station from the in-game radio.
+1. Add stations to `stations.csv` in `name,url,category` format.
+2. Start Icecast and FFmpeg with `docker compose up -d`.
+3. `transcode.sh` generates `live_streams.sii`, then FFmpeg converts each station to 128 kbps MP3 and sends it to Icecast.
+4. Icecast serves the streams at `http://127.0.0.1:8000/`. If a station disconnects, the transcoder retries automatically.
+5. Close ETS2, copy `live_streams.sii` to `Documents/Euro Truck Simulator 2/`, then reopen the game and select a station from the radio menu.
 
-**Note:** Run Docker on the same computer as ETS2, since the generated stream URLs use `127.0.0.1`.
+Run Docker on the same computer as ETS2. The generated stream URLs use `127.0.0.1`.
 
-To stop the services, run `docker compose down`.
+Stop the services with `docker compose down`.
