@@ -1,6 +1,6 @@
 # ETS2 Radio Transcoder
 
-ETS2 Radio Transcoder converts online radio streams to MP3 and hosts them locally for playback in Euro Truck Simulator 2 (ETS2).
+ETS2 Radio Transcoder converts radio streams that Euro Truck Simulator 2 (ETS2) can't play directly into locally hosted MP3 streams the game can play.
 
 ## Quick start
 
