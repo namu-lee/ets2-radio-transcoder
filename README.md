@@ -1,15 +1,46 @@
 # ETS2 Radio Transcoder
 
-ETS2 Radio Transcoder converts online radio stations into local MP3 streams for Euro Truck Simulator 2 (ETS2).
+Play the radio stations listed in `stations.csv` in Euro Truck Simulator 2 (ETS2) through local MP3 streams.
 
 ## Quick start
 
-1. Add stations to `stations.csv` in `name,url,category` format.
-2. Start Icecast and FFmpeg with `docker compose up -d`.
-3. `transcode.sh` generates `live_streams.sii`, then FFmpeg converts each station to 128 kbps MP3 and sends it to Icecast.
-4. Icecast serves the streams at `http://127.0.0.1:8000/`. If a station disconnects, the transcoder retries automatically.
-5. Close ETS2, copy `live_streams.sii` to `Documents/Euro Truck Simulator 2/`, then reopen the game and select a station from the radio menu.
+These instructions use Windows PowerShell. Install Git and Docker Desktop first. Start Docker Desktop, and launch ETS2 at least once so its Documents folder exists.
 
-Run Docker on the same computer as ETS2. The generated stream URLs use `127.0.0.1`.
+1. Clone the repository and start the streams:
 
-Stop the services with `docker compose down`.
+   ```powershell
+   git clone https://github.com/namu-lee/ets2-radio-transcoder.git
+   cd ets2-radio-transcoder
+   docker compose up -d
+   ```
+
+2. Wait for `live_streams.sii` to appear in the repository folder. Close ETS2, then copy the file to the game's Documents folder:
+
+   ```powershell
+   $ets2Dir = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Euro Truck Simulator 2'
+   Copy-Item .\live_streams.sii "$ets2Dir\live_streams.sii" -Force
+   ```
+
+   This overwrites the existing radio list. Back up your current `live_streams.sii` if you want to keep it.
+
+3. Launch ETS2, open the Radio menu, and choose a station. Leave Docker running while listening.
+
+To stop the streams:
+
+```powershell
+docker compose down
+```
+
+Docker and ETS2 must run on the same PC, since the stream URLs use `127.0.0.1`.
+
+## Adding stations
+
+The included `stations.csv` is ready to use. To add another station, append a row in `name,url,category` format. Use a direct audio stream URL.
+
+After saving the file, restart the transcoder:
+
+```powershell
+docker compose restart ffmpeg
+```
+
+Wait for `live_streams.sii` to be regenerated, then close ETS2 and copy it to the game's Documents folder again using the command above.
