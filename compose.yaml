@@ -25,6 +25,7 @@ services:
     image: lscr.io/linuxserver/ffmpeg:version-9.0-cli
     restart: unless-stopped
     init: true
+    stop_grace_period: 30s
 
     depends_on:
       - icecast

@@ -1,10 +1,10 @@
 name,url,category
-KBS 1 Radio,https://radio.bsod.kr/stream?stn=kbs&ch=1radio,News/Talk
-KBS 2 Radio,https://radio.bsod.kr/stream?stn=kbs&ch=2radio,Music/Talk
-KBS 1FM,https://radio.bsod.kr/stream?stn=kbs&ch=1fm,Classical
-KBS 2FM,https://radio.bsod.kr/stream?stn=kbs&ch=2fm,Pop
+KBS 1 Radio,https://cfpwwwapi.kbs.co.kr/api/v1/landing/live/channel_code/21,News/Talk
+KBS 2 Radio,https://cfpwwwapi.kbs.co.kr/api/v1/landing/live/channel_code/22,Music/Talk
+KBS 1FM,https://cfpwwwapi.kbs.co.kr/api/v1/landing/live/channel_code/24,Classical
+KBS 2FM,https://cfpwwwapi.kbs.co.kr/api/v1/landing/live/channel_code/25,Pop
 YTN Radio,https://radiolive.ytn.co.kr/radio/_definst_/20211118_fmlive/playlist.m3u8,News/Talk
-SBS Love FM,https://radio.bsod.kr/stream?stn=sbs&ch=lovefm,Talk/Music
+SBS Love FM,https://apis.sbs.co.kr/play-api/1.0/livestream/lovepc/lovefm?protocol=hls&ssl=Y,Talk/Music
 TBN Gyeongin,https://www.tbn.it.kr/gyeongin/myStream/playlist.m3u8,Traffic/Info
 TBS FM,https://cdnfm.tbs.seoul.kr/tbs/_definst_/tbs_fm_web_360.smil/playlist.m3u8,Talk/Music
 Gugak FM,https://mgugaklive.nowcdn.co.kr/gugakradio/gugakradio.stream/playlist.m3u8,Traditional
